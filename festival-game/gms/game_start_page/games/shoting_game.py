@@ -1,0 +1,1 @@
+print("Shoting Game!")
