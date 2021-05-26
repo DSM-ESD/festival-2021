@@ -6,9 +6,9 @@ import { Badge, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-const PageHeader = ({ open, onOpen, children }) => {
+const PageHeader = ({ open, onOpen, drawerWidth, children }) => {
   return (
-    <HeaderBlock position="absolute" $open={open}>
+    <HeaderBlock position="absolute" $open={open} $drawerWidth={drawerWidth}>
       <Toolbar>
         <MenuButton
           edge="start"
@@ -35,16 +35,16 @@ const PageHeader = ({ open, onOpen, children }) => {
 PageHeader.propTypes = {
   open: PropTypes.bool,
   onOpen: PropTypes.func,
+  drawerWidth: PropTypes.number,
   children: PropTypes.string,
 };
 
 PageHeader.defaultProps = {
   open: true,
   onOpen: null,
+  drawerWidth: 0,
   children: 'Application',
 };
-
-const drawerWidth = 240;
 
 const HeaderBlock = styled(AppBar)`
   z-index: ${({ theme }) => theme.zIndex.drawer + 1};
@@ -56,8 +56,8 @@ const HeaderBlock = styled(AppBar)`
   ${props =>
     props.$open &&
     css`
-      margin-left: ${drawerWidth}px;
-      width: calc(100% - ${drawerWidth}px);
+      margin-left: ${props.$drawerWidth}px;
+      width: calc(100% - ${props.$drawerWidth}px);
       transition: ${({ theme }) =>
         theme.transitions.create(['width', 'margin'], {
           easing: theme.transitions.easing.sharp,
