@@ -5,7 +5,7 @@
 ## :fire: 현재 진행 중인 프로젝트
 
 - [ ] [Festival-Game](./festival-game)
-- [ ] 미정
+- [ ] [Festival-LED](./festival-led)
 
 ## :warning: 주의 사항
 
