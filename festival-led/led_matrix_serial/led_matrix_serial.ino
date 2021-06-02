@@ -28,6 +28,11 @@ void loop()
     if (data == 0x02) str = "";
     else if (data == 0x03)
     {
+      if (str == "")
+      {
+        for (int num = 0; num < MAX; num++)
+          lc.clearDisplay(num); // LED clear
+      }
       lc.setLed(atoi(str[0]), atoi(str[1]), atoi(str[2]), true);
     }
     else str += data;
