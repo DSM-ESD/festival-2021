@@ -48,6 +48,35 @@ def create_app():
             return jsonify(message="Load Fail"), 500
 
 
+    @app.route('/set-user-status', methods=['POST'])
+    def set_user_status():
+        try:
+            game_data = request.json
+            user_id_in_dict = game_data["id"]
+            user_status_in_dict = game_data["status"]
+
+            user = app.database.execute(text(f"SELECT * FROM user_status WHERE id = \"{user_id_in_dict}\""))
+            user_info = user.fetchall()
+
+            if user_info == []:
+                user_set = app.database.execute(text("""
+                                                        INSERT INTO user_status (
+                                                        id,
+                                                        status
+                                                    ) VALUES (
+                                                        :id,
+                                                        :status
+                                                    )
+                                                        """), game_data).lastrowid
+
+                return jsonify(message="User status save"), 201
+            else:
+                user_set = app.database.execute(text(f"UPDATE user_status SET status={user_status_in_dict} WHERE id=\"{user_id_in_dict}\""), game_data).lastrowid
+
+                return jsonify(message="User status change"), 201
+        except:
+            return jsonify(message="Set User status Fail"), 500
+
     @app.route("/")
     def hello_world():
         return "Hello World"
