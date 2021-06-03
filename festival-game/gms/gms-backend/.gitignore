@@ -1,2 +1,3 @@
 /venv
 .vscode
+/GMS_Backend/config.py
